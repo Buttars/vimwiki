@@ -4,7 +4,7 @@ Three primary patterns for organizing domain logic: *Transaction Script*, *Domai
 
 ## Transaction Script
 
-Transaction Script takes input from the presentations, validates the input, stores the data in the DB, and invokes any operations from other systems.
+[Transaction Script](https://www.martinfowler.com/eaaCatalog/transactionScript.html) takes input from the presentations, validates the input, stores the data in the DB, and invokes any operations from other systems.
 
 PROS:
 
@@ -18,7 +18,7 @@ Cons:
 
 ## Domain Model
 
-Domain Model is an object-oriented way of handling domain logic.
+[Domain Model](https://www.martinfowler.com/eaaCatalog/domainModel.html) is an object-oriented way of handling domain logic.
 
 With domain model we build a model of the domain which is organized primarily around the nouns in the domain.
 
@@ -39,7 +39,7 @@ Cons:
 
 ## Table Module
 
-Table module retrieves the necessary data at each step instead of having all the logic embedded on the object.
+[Table Module](https://www.martinfowler.com/eaaCatalog/tableModule.html) retrieves the necessary data at each step instead of having all the logic embedded on the object.
 
 There are only instance of a contract in a system for any given contract. That means that to do work you must provide references (IDs and stuff) to the relevant information.
 
@@ -76,7 +76,7 @@ You might use Transaction Script for some of the simple domain logic while using
 
 ## Service Layer
 
-One way to handle domain logic is to separate it into two. A __Service Layer__ is placed over an underlying __Domain Model__ or __Table Module__.
+One way to handle domain logic is to separate it into two. A [__Service Layer__](https://www.martinfowler.com/eaaCatalog/tableModule.html) is placed over an underlying __Domain Model__ or __Table Module__.
 __Transaction Script__ is usually too simple to justify the separation of the layers.
 
 With a service layer approach the presentation logic interacts with the domain purely through the Service Layer which acts as an API for the application.

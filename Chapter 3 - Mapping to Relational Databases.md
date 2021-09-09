@@ -1,6 +1,6 @@
 # Mapping to Relational Databases
 
-[##](##) Architectural Patterns
+## Architectural Patterns
 
 One class per database table
 
@@ -41,3 +41,51 @@ __Lazy Loading__ objects is when there's placeholder reference on an object inst
 Prefer single queries that return more than enough data but be careful to not lock up too many rows while doing so.
 
 ## Structural Mapping Patterns
+
+These are useful when dealing with compositional hierarchies.
+
+__Identity Field__ - A field that references the id to a foreign object in a separate table.
+
+__Associate Table Mapping__ - A separate table to handle many-to-many relationships in relational databases. Typically id-to-id rows.
+
+__Serialized LOB__ - Serialized Large Object
+
+__BLOB__ - Binary Large Object
+
+__CLOB__ - Character Large Object
+
+## Inheritance (pg. 45)
+
+These are useful when dealing with class hierarchy linked by inheritance.
+
+Each trade off is between the duplication of data structure and speed of access.
+
+[__Single Table Inheritance__](https://www.martinfowler.com/eaaCatalog/singleTableInheritance.html) - One table for all the classes in a class hierarchy. This is when you make a mapping object that maps all of the separate values onto one class. Caution, whenever a super class is changed you must to alter the tables and the mapping code.
+
+[__Concrete Table Inheritance__](https://www.martinfowler.com/eaaCatalog/concreteTableInheritance.html) - One table for each concrete class. Avoids joins but is brittle to changes. The top level class's data is duplicated onto each concrete class table allowing querying without joins.
+
+[__Class Table Inheritance__](https://www.martinfowler.com/eaaCatalog/classTableInheritance.html) - One table per class in the hierarchy. This is the simplest relationship between the classes and the tables but it takes multiple joins to load a single object which usually reduces performance.
+
+With any particular task, start off by thinking about the *Domain Model* first and integrate each piece in the database as you go.
+
+If the schema already exists determine if it is simple or complex domain logic.
+
+If it's simple build Row Data Gateway or Table Data Gateway class that mimics the database and layer the domain logic on top of it.
+
+If it's more complex gradually build up a Domain Model and include Data mappers to persist the data to the existing database.
+
+## Double Mapping
+
+When dealing with *data with many differences* it's wise to have multiple mapping layers, one for each data source.
+
+Sometimes similar data needs to be pulled from more than one source. Multiple databases may hold similar data but with small differences.
+
+When dealing with *very similar data* with little differences between the tables is to have two step mapping layers.
+
+The first mapping layer converts data from the in-memory schema to a logical data store schema. The logical data store schema is designed to maximize the similarities in the data source formats.
+
+The second step maps the logical data store schema to the physical data store schema. This is step contains all the differences.
+
+The mapping from the logical data store (in memory) to the physical data store should be used as a __Gateway__ and should use any of the mapping techniques to map from the application logic to the logical data store.
+
+## Using Metadata

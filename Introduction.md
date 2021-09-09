@@ -12,7 +12,7 @@ Architecture is:
 - A subjective shared understanding of a system's design by the expert developers on a project.
 - Defined by the form of major components of the system and how they react.
 - "The important stuff - whatever that is"
--
+
 
 ## Enterprise Architecture
 Complexity of the architecture typically mimics the complexity of the business logic.
